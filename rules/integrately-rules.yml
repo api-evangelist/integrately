@@ -1,0 +1,79 @@
+aid: integrately:rules
+name: Integrately Usage Rules
+description: >-
+  Operational rules and guardrails for adopting Integrately as a one-click,
+  no-code workflow automation layer between SaaS applications. These rules
+  cover automation selection, connection hygiene, run monitoring, error
+  handling, and data protection across the Integrately platform.
+modified: '2026-04-28'
+rules:
+  - id: prefer-prebuilt
+    category: Automation Selection
+    statement: >-
+      Prefer Integrately's pre-built one-click automations over custom flows
+      where one exists for the source and target apps; only build custom
+      automations when no template fits the use case.
+  - id: connection-per-environment
+    category: Connections
+    statement: >-
+      Create separate Integrately app connections for production, staging,
+      and personal accounts so that test data does not flow into production
+      systems through shared credentials.
+  - id: smartconnect-review
+    category: Field Mapping
+    statement: >-
+      Review SmartConnect auto-mappings before activating an automation; do
+      not assume that auto-detected fields match your intended source and
+      target columns.
+  - id: dedupe-and-idempotency
+    category: Data Hygiene
+    statement: >-
+      Use unique IDs (email, external ID, or record key) in trigger payloads
+      and rely on app-side dedup logic so that retried or replayed runs do
+      not create duplicate records.
+  - id: monitor-run-history
+    category: Observability
+    statement: >-
+      Check the automation run history regularly for errors, skipped runs,
+      and quota exhaustion; treat any persistent error rate as an incident
+      rather than acceptable noise.
+  - id: handle-failed-tasks
+    category: Error Handling
+    statement: >-
+      Configure error notifications and a manual review queue for failed
+      tasks; do not let silent failures accumulate when a downstream API
+      returns 4xx or 5xx errors.
+  - id: rate-limit-awareness
+    category: Reliability
+    statement: >-
+      Stay within plan task limits and the rate limits of connected SaaS
+      apps; throttle high-volume triggers (e.g., webhook firehoses) before
+      they enter Integrately.
+  - id: pii-minimization
+    category: Data Handling
+    statement: >-
+      Pass only the fields needed by the target app through an automation;
+      avoid forwarding full payloads that include PII, payment data, or
+      health information when not required.
+  - id: webhook-secret-validation
+    category: Security
+    statement: >-
+      When using Integrately webhooks as triggers, validate any signing
+      secret or shared token on the receiving side and rotate it if leaked.
+  - id: ownership-and-handoff
+    category: Governance
+    statement: >-
+      Tie each automation to a named owner and document its business
+      purpose; pause or migrate automations when the owner leaves rather
+      than letting orphaned flows continue running.
+  - id: testing-before-activation
+    category: Lifecycle
+    statement: >-
+      Test new automations end-to-end with sample records and a small
+      activation window before turning them on across all incoming data.
+  - id: pricing-tier-fit
+    category: Cost
+    statement: >-
+      Match the Integrately pricing tier to the expected monthly task
+      volume; review usage monthly to avoid over-buying or hitting hard
+      stops mid-cycle.
