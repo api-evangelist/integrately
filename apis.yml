@@ -86,6 +86,107 @@ common:
     url: https://www.youtube.com/channel/UCtLeDvJ7HVKuZ6O5UtwgnMA
   - type: Facebook
     url: https://facebook.com/groups/integraters
+integrations:
+  - name: Google Sheets
+  - name: Webhook / API Integration
+  - name: Facebook Lead Ads
+  - name: Monday.com
+  - name: Trello
+  - name: Gmail
+  - name: Data Modifier
+  - name: Airtable
+  - name: Google Drive
+  - name: Elementor Forms
+  - name: Slack
+  - name: Close
+  - name: GoToWebinar
+  - name: Salesforce
+  - name: HubSpot
+  - name: Delay
+  - name: ClickUp
+  - name: GoHighLevel
+  - name: Brevo (Sendinblue)
+  - name: Zoho CRM
+  - name: WooCommerce
+  - name: LeadConnector
+  - name: ActiveCampaign
+  - name: Discord
+  - name: ConvertKit
+  - name: Pipedrive
+  - name: Notion
+  - name: WhatsApp
+  - name: Google Forms
+  - name: Google Calendar
+  - name: Encharge
+  - name: Gravity Forms
+  - name: AiSensy
+  - name: QuestionScout
+  - name: Google Docs
+  - name: MailerLite
+  - name: Fluent Forms
+  - name: Keap Max Classic
+  - name: SMTP
+  - name: ThriveCart
+  - name: Mailchimp
+  - name: Stripe
+  - name: Microsoft Outlook
+  - name: Bitrix24
+  - name: OpenAI
+  - name: CompanyHub
+  - name: Twilio
+  - name: Google Lead Form
+  - name: Microsoft Excel
+  - name: Shopify
+  - name: Contact Form 7
+  - name: Google Chat
+  - name: MailerLite Classic
+  - name: Landingi
+  - name: Freshworks CRM (Freshsales Suite)
+  - name: Kartra
+  - name: Systeme.io
+  - name: Typeform
+  - name: Asana
+  - name: Google Contacts
+  - name: Zoom
+  - name: Swipe Pages
+  - name: Manychat
+  - name: Flowlu
+  - name: ChatGPT
+  - name: Moosend
+  - name: Kommo (amoCRM)
+  - name: Calendly
+  - name: Fluent CRM
+  - name: Jotform
+  - name: AWeber
+  - name: Razorpay
+  - name: Zenler
+  - name: Follow Up Boss
+  - name: GetResponse
+  - name: Google My Business
+  - name: Circle
+  - name: TikTok Lead Generation
+  - name: LearnDash
+  - name: Google Tasks
+  - name: Tally
+  - name: VBOUT
+  - name: klaviyo
+  - name: ClickSend SMS
+  - name: OneDrive
+  - name: WATI
+  - name: noCRM.io
+  - name: Flodesk
+  - name: Beehiiv
+  - name: Bigin by Zoho CRM
+  - name: WordPress
+  - name: Clientjoy
+  - name: Facebook Pages
+  - name: Gist
+  - name: RSS
+  - name: SendFox
+  - name: Acuity Scheduling
+  - name: Amelia
+  - name: Smartsheet
+  - name: Salesforce Marketing Cloud
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
