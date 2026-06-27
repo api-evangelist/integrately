@@ -53,7 +53,7 @@ apis:
         url: https://integrately.com/pricing
       - type: Blog
         url: https://integrately.com/blog
-      - type: SignUp
+      - type: Signup
         url: https://app.integrately.com/signup
       - type: Login
         url: https://app.integrately.com/login
@@ -70,7 +70,7 @@ common:
     url: https://integrately.com/pricing
   - type: Blog
     url: https://integrately.com/blog
-  - type: SignUp
+  - type: Signup
     url: https://app.integrately.com/signup
   - type: Login
     url: https://app.integrately.com/login
