@@ -60,6 +60,8 @@ apis:
       - type: Rules
         url: rules/integrately-rules.yml
 common:
+  - type: DomainSecurity
+    url: security/integrately-domain-security.yml
   - type: Portal
     url: https://integrately.com
   - type: Documentation
