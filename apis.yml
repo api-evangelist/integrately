@@ -32,6 +32,17 @@ tags:
   - SaaS Integration
   - SMB
   - Triggers and Actions
+  - Webhook
+  - Workflow-Automation
+  - Workflows
+tags_raw:
+  - Automation
+  - Business Process Automation
+  - iPaaS
+  - No-Code
+  - SaaS Integration
+  - SMB
+  - Triggers and Actions
   - Webhooks
   - Workflow Automation
   - Workflows
@@ -50,6 +61,11 @@ apis:
     humanURL: https://integrately.com
     baseURL: https://app.integrately.com
     tags:
+      - Automation
+      - No-Code
+      - Software-as-a-Service
+      - Workflow-Automation
+    tags_raw:
       - Automation
       - No-Code
       - SaaS
