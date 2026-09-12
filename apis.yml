@@ -99,6 +99,8 @@ apis:
       - type: Rules
         url: rules/integrately-rules.yml
 common:
+  - type: Website
+    url: https://www.integrately.com/
   - type: DomainSecurity
     url: security/integrately-domain-security.yml
   - type: Portal
