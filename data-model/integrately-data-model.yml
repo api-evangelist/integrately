@@ -1,0 +1,198 @@
+generated: '2026-09-13'
+method: derived
+source: live JSON responses from https://embed.integrately.com (see components/integrately-components.yml)
+provider: Integrately
+providerId: integrately
+description: Entity-relationship graph for Integrately's automation catalog, DERIVED from the JSON records
+  actually returned by the three endpoints behind Integrately's public embed widget on 2026-09-13. There
+  is no OpenAPI, no JSON Schema and no published object reference to derive from, so every field listed
+  below was observed in a real response body. Fields Integrately did not return are not listed, and no
+  entity is inferred that was not seen.
+caveat: This describes the PUBLIC CATALOG that the embed widget browses - apps, their triggers and actions,
+  and the ready-made automation templates that join them. It does NOT describe a user's own automations,
+  runs, connections or task ledger; those live behind the authenticated application at app.integrately.com
+  and were not probed.
+entities:
+- name: App
+  description: A connectable third-party application in the Integrately catalog.
+  source_endpoint: GET /apps
+  observed_count: 1100
+  id_field: id
+  id_type: integer
+  fields:
+  - name: id
+    type: integer
+  - name: name
+    type: string
+    note: Internal PascalCase key, e.g. "GoogleSheets", "Webhook".
+  - name: label
+    type: string
+    note: Display name, e.g. "Google Sheets", "Webhook / API Integration".
+  - name: slug
+    type: string
+    note: URL segment used at integrately.com/integrations/{slug}.
+  - name: logoUrl
+    type: string
+  - name: primaryColor
+    type: string
+    note: Space-separated RGB triple.
+  - name: isPremium
+    type: boolean
+    note: 31 of 1,100 apps observed true.
+  - name: isOAuth
+    type: boolean
+    note: 295 of 1,100 apps observed true.
+  - name: needsAuthentication
+    type: boolean
+    note: 187 of 1,100 apps observed false.
+  - name: isHidden
+    type: boolean
+  - name: installations
+    type: integer
+    note: Public install count, e.g. Google Sheets 25,293.
+  - name: categories
+    type: array
+  relationships:
+  - type: has_many
+    target: Step
+    via: appId
+  - type: has_many
+    target: Category
+    via: categories[]
+  - type: has_many
+    target: Template
+    via: apps[].id
+- name: Category
+  description: A classification applied to an App. One category per app is flagged primary.
+  source_endpoint: GET /apps (embedded in App.categories[])
+  observed_count: 63
+  id_field: slug
+  id_type: string
+  fields:
+  - name: name
+    type: string
+  - name: slug
+    type: string
+  - name: isPrimary
+    type: boolean
+  relationships:
+  - type: has_many
+    target: App
+    via: categories[]
+- name: Step
+  description: A trigger or action an App exposes inside an automation. Integrately returns triggers and
+    actions from the same endpoint, discriminated by the type field and the type query parameter.
+  source_endpoint: GET /apps/{appId}/actions?type=trigger|action
+  id_field: id
+  id_type: integer
+  fields:
+  - name: id
+    type: integer
+  - name: appId
+    type: integer
+    note: Foreign key to App.id.
+  - name: type
+    type: string
+    note: 'Observed values: Trigger, InstantTrigger, Action.'
+  - name: label
+    type: string
+  - name: description
+    type: string
+  - name: stepDescription
+    type: string
+  - name: webhookSubscription
+    type: boolean
+    note: True when the trigger is delivered by a webhook subscription rather than polling.
+  - name: hasCentralizedWebhook
+    type: boolean
+  - name: isSubsequentStepRequired
+    type: boolean
+  - name: supportsOutputFieldsFromResponse
+    type: boolean
+  - name: recordIdentifierKey
+    type: string
+    note: The field Integrately treats as the record key, e.g. "rowid" for a Google Sheets row.
+  - name: errorOnDuplicateEntry
+    type: boolean
+  - name: createDelegation
+    type: object|null
+  - name: searchDelegation
+    type: object|null
+  - name: updateDelegation
+    type: object|null
+  relationships:
+  - type: belongs_to
+    target: App
+    via: appId
+  - type: has_many
+    target: Template
+    via: actionsIds
+- name: Template
+  description: A ready-made one-click automation joining two or more Apps. This is Integrately's headline
+    unit of value.
+  source_endpoint: POST /search
+  observed_count: 340365
+  id_field: template.id
+  id_type: integer
+  fields:
+  - name: slug
+    type: string
+    note: Store path, e.g. /store/google-sheets-clickup-integrations/38264704/create-clickup-task-for-new-google-sheets-row
+  - name: installationCode
+    type: string
+    note: Base64-ish token consumed by the app install deep link at app.integrately.com/install/{installationCode}.
+  - name: apps
+    type: array
+    note: The Apps this template joins, each carrying id, label, logoUrl, primaryColor.
+  - name: template.id
+    type: integer
+  - name: template.name
+    type: string
+  - name: template.entityId
+    type: integer
+  - name: template.description
+    type: string
+  - name: template.likes
+    type: integer
+  - name: template.installations
+    type: integer
+  relationships:
+  - type: has_many
+    target: App
+    via: apps[].id
+  - type: belongs_to
+    target: Installation
+    via: installationCode
+- name: Installation
+  description: The act of a user activating a Template into their own account. Only its entry point is
+    public; the resulting object is not.
+  source_endpoint: 'deep link only: https://app.integrately.com/install/{installationCode}'
+  fields:
+  - name: installationCode
+    type: string
+  relationships:
+  - type: belongs_to
+    target: Template
+    via: installationCode
+  note: Not probed - requires an authenticated Integrately account.
+id_prefixes:
+  observed: false
+  note: Integrately uses bare integer ids with no type prefix (no "app_", "tpl_" convention), so an id
+    carries no self-describing type information. installationCode is the one opaque string token.
+x-evidence:
+- url: https://embed.integrately.com/apps
+  http_status: 200
+  fetched: '2026-09-13'
+- url: https://embed.integrately.com/apps/180/actions?type=trigger
+  http_status: 200
+  fetched: '2026-09-13'
+- url: https://embed.integrately.com/apps/192/actions?type=action
+  http_status: 200
+  fetched: '2026-09-13'
+- url: https://embed.integrately.com/search
+  method: POST
+  http_status: 200
+  fetched: '2026-09-13'
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,76 @@
+generated: '2026-09-13'
+method: searched
+source: npm, PyPI, RubyGems, crates.io, Packagist, GitHub and the Integrately site
+provider: Integrately
+providerId: integrately
+description: >-
+  Client libraries and distributed packages published by Integrately. There are none. This file
+  records the search so the absence is auditable: every registry below was queried on 2026-09-13
+  and returned either nothing or third-party results. Integrately has no developer API, so the
+  absence of an SDK is consistent rather than surprising. No SDKs pointer is wired into apis.yml.
+package_count: 0
+official_package_count: 0
+packages: []
+registries_searched:
+  - registry: npm
+    endpoint: https://registry.npmjs.org/-/v1/search?text=integrately
+    result: >-
+      One match, and it is not Integrately's: "ozyifttt" (2.2.4, 2022-10-07), an open-source
+      Zapier-like bot platform that merely names Integrately in its README as a service it is an
+      alternative to.
+    first_party_hits: 0
+  - registry: PyPI
+    endpoint: https://pypi.org/pypi/integrately/json
+    http_status: 404
+    first_party_hits: 0
+  - registry: RubyGems
+    endpoint: https://rubygems.org/api/v1/gems/integrately.json
+    http_status: 404
+    first_party_hits: 0
+  - registry: crates.io
+    endpoint: https://crates.io/api/v1/crates?q=integrately
+    result: No matching crate; the query returned unrelated fuzzy matches.
+    first_party_hits: 0
+  - registry: Packagist
+    endpoint: https://packagist.org/search.json?q=integrately
+    result: No matching package; the query returned unrelated fuzzy matches.
+    first_party_hits: 0
+  - registry: GitHub
+    endpoint: https://api.github.com/orgs/integrately/repos
+    http_status: 200
+    result: >-
+      The github.com/Integrately organisation exists (created 2018-11-28) but is empty of product
+      code — one public repository, a 2018 fork of the minimal-mistakes Jekyll theme, last pushed
+      2018-11-27. No SDK, no CLI, no specs, no description and no linked website. Because nothing
+      identifies it as the company's engineering presence beyond the name, no GitHubOrganization
+      pointer is wired into apis.yml on this evidence.
+    first_party_hits: 0
+cdn_distributions:
+  - name: Embed Automations widget
+    registry: cdn
+    url: https://embed.integrately.com/embed
+    version: null
+    published: null
+    note: >-
+      The only first-party code Integrately distributes for a developer to include. It is an
+      unpinned CDN script — the loader URL carries no version segment or content hash, so a
+      consumer cannot determine which build they are executing and neither can this record. There
+      is no registry metadata endpoint for it (it is a bespoke first-party path, not an npm or
+      jsDelivr package), so version and published are null by measurement, not by omission. Full
+      detail in components/integrately-components.yml.
+x-evidence:
+  - url: https://registry.npmjs.org/-/v1/search?text=integrately
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://pypi.org/pypi/integrately/json
+    http_status: 404
+    fetched: '2026-09-13'
+  - url: https://rubygems.org/api/v1/gems/integrately.json
+    http_status: 404
+    fetched: '2026-09-13'
+  - url: https://api.github.com/orgs/integrately/repos
+    http_status: 200
+    fetched: '2026-09-13'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

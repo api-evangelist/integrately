@@ -1,0 +1,137 @@
+generated: '2026-09-13'
+method: probed
+source: https://integrately.com/embed
+provider: Integrately
+providerId: integrately
+description: >-
+  Integrately publishes one client-side embeddable component: the Embed Automations widget, a
+  drop-in JavaScript widget that renders Integrately's ready-made automation templates inside a
+  third party's own website or SaaS product. It is aimed at SaaS vendors who want their users to
+  activate integrations with other apps from inside their product. This is the closest thing
+  Integrately ships to a developer-facing product surface — it is a copy-paste script tag, not an
+  API with a published contract.
+families:
+  - name: Embed Automations
+    description: >-
+      A configurable widget that lists Integrately one-click automation templates, optionally
+      pre-filtered to a single app so a SaaS vendor's users only see automations involving that
+      vendor's product. The widget renders an app picker, a trigger/action picker, a paginated
+      template list, and an "Activate" button that deep-links into the Integrately app's
+      installation flow.
+    docs: https://integrately.com/embed
+    distribution: cdn
+    loader:
+      registry: cdn
+      host: embed.integrately.com
+      snippet: '<script src="https://embed.integrately.com/embed?limit=10&custom=true"></script>'
+      mount: '<div id="integrately-embed"></div>'
+      mount_note: >-
+        The widget mounts into an element with id "integrately-embed" if one exists; otherwise it
+        renders in place of the script tag.
+      version: null
+      published: null
+      version_note: >-
+        The distribution is UNPINNED. The loader URL carries no version segment and no immutable
+        hash — every consumer gets whatever embed.integrately.com is serving at page load, and
+        neither the consumer nor this record can tell what build that is. There is no registry
+        metadata endpoint to query (this is a first-party CDN path, not an npm/jsDelivr package),
+        so version and published are recorded null deliberately: checked, nothing to record.
+      runtime_dependency: https://cdn.jsdelivr.net/npm/vue
+      runtime_dependency_note: >-
+        The served bundle loads Vue from the jsDelivr CDN at runtime and is itself a Vue template
+        string plus component definition (~30KB as served on 2026-09-13).
+    configuration:
+      - name: apps
+        in: query
+        description: App name to pre-select, so only automations involving that app are listed.
+        required: false
+      - name: limit
+        in: query
+        description: Automations shown per page. The configurator UI allows values up to 50 in steps of 5, defaulting to 10.
+        required: false
+      - name: custom
+        in: query
+        description: Whether to show the "create your own automation" option alongside ready templates.
+        required: false
+      - name: strict
+        in: query
+        description: >-
+          Restricts results to templates containing every selected app rather than any of them.
+          The widget sets this automatically when more than one app is selected.
+        required: false
+    backing_endpoints:
+      note: >-
+        PROBED, NOT PUBLISHED. Integrately does not document these; they were read out of the
+        widget bundle served from embed.integrately.com and then called directly to confirm they
+        answer. They are recorded here as evidence of a real callable surface, NOT as a published
+        API contract — no OpenAPI, Swagger or other machine-readable description of them exists,
+        and this repository does not author one on Integrately's behalf.
+      base_url: https://embed.integrately.com
+      authentication: none
+      endpoints:
+        - method: GET
+          path: /apps
+          description: Lists the connectable applications in the Integrately catalog.
+          observed:
+            http_status: 200
+            content_type: application/json; charset=utf-8
+            total: 1100
+            envelope: '{ total, hasMore, data[], success, message }'
+            record_fields: [id, name, label, logoUrl, primaryColor, slug, isPremium, isOAuth, needsAuthentication, isHidden, installations, 'categories[]']
+            fetched: '2026-09-13'
+        - method: GET
+          path: /apps/{appId}/actions
+          description: Lists the triggers or actions an application exposes inside Integrately.
+          parameters:
+            - name: type
+              in: query
+              values: [trigger, action]
+          observed:
+            http_status: 200
+            content_type: application/json; charset=utf-8
+            envelope: '{ data[] }'
+            record_fields: [id, appId, type, webhookSubscription, isSubsequentStepRequired, supportsOutputFieldsFromResponse, hasCentralizedWebhook, label, description, stepDescription, recordIdentifierKey, errorOnDuplicateEntry, createDelegation, searchDelegation, updateDelegation]
+            example: /apps/180/actions?type=trigger
+            fetched: '2026-09-13'
+        - method: POST
+          path: /search
+          description: Searches the ready-made automation template catalog.
+          request_body: '{ actionsIds[], appIds[], limit, start, strict, fallbackStrict, showRecommendation }'
+          observed:
+            http_status: 200
+            content_type: application/json; charset=utf-8
+            total: 340365
+            envelope: '{ success, message, total, data[] }'
+            record_fields: [slug, installationCode, 'apps[]', 'template{id,name,entityId,description,likes,installations}']
+            note: GET on this path returns 405 — it is POST-only.
+            fetched: '2026-09-13'
+      pagination:
+        style: offset
+        request_params: [start, limit]
+        response_fields: [total, hasMore]
+x-ownership: >-
+  embed.integrately.com is an Integrately-controlled subdomain; the loader URL is emitted by
+  Integrately's own configurator at https://integrately.com/embed, and the served bundle references
+  https://app.integrately.com and https://integrately.com/images/integrately-logo.svg. There is no
+  sibling-brand ambiguity here.
+x-evidence:
+  - url: https://integrately.com/embed
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://embed.integrately.com/embed?limit=5&custom=true
+    http_status: 200
+    content_type: text/javascript
+    fetched: '2026-09-13'
+  - url: https://embed.integrately.com/apps
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://embed.integrately.com/apps/180/actions?type=trigger
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://embed.integrately.com/search
+    http_status: 200
+    method: POST
+    fetched: '2026-09-13'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

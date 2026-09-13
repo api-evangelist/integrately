@@ -1,0 +1,123 @@
+generated: '2026-09-13'
+method: searched
+source: https://integrately.com/docs#connect-webhook
+provider: Integrately
+providerId: integrately
+description: >-
+  Integrately's event surface. Integrately publishes NO AsyncAPI document and no event-schema
+  catalog — this file records the webhook capability the product actually advertises, and nothing
+  more. Webhooks are listed as a paid feature on every tier of the pricing table, and the help
+  centre documents them as one of the three ways to connect an app. NEVER FABRICATE: the individual
+  event payloads are user-defined (whatever the sending system POSTs), so there is no event schema
+  to capture and none is invented here.
+asyncapi_document:
+  published: false
+  note: >-
+    No AsyncAPI spec found. Probed /asyncapi.yaml, /asyncapi.json and /openapi.json on
+    integrately.com, www.integrately.com, app.integrately.com and embed.integrately.com — all miss
+    (the apex and embed host return 404, www and app return their SPA HTML shell for every path).
+surfaces:
+  - name: Inbound webhook trigger
+    direction: inbound
+    kind: user-generated receiver URL
+    description: >-
+      Integrately mints a unique URL per automation. Any system that can POST to a URL can start an
+      Integrately automation in real time, without polling. This is the escape hatch for apps
+      Integrately has no native connector for.
+    app: Webhook / API Integration
+    app_id: 192
+    app_slug: webhook-api
+    trigger:
+      id: 1644
+      type: InstantTrigger
+      label: Operation is performed
+      description: Triggers the automation when data is received from a webhook URL
+    payload_schema:
+      published: false
+      note: >-
+        Caller-defined. The trigger accepts whatever body the sending system posts and Integrately
+        derives the mappable output fields from a sample the user supplies during setup.
+    docs: https://integrately.com/docs#connect-webhook
+    tier_availability: >-
+      Listed as a per-tier feature on the pricing table; the Webhook / API Integration app itself
+      is flagged isPremium true, so it is a paid-plan feature.
+  - name: Outbound HTTP action
+    direction: outbound
+    kind: generic HTTP request step
+    description: >-
+      An automation step that sends data to an arbitrary URL — the counterpart to the inbound
+      trigger, used to call APIs Integrately has no native action for.
+    app: Webhook / API Integration
+    app_id: 192
+    action:
+      id: 12502
+      type: Action
+      label: Send data to a URL
+      description: Sends data to a url
+    docs: https://integrately.com/docs#connect-webhook
+  - name: Per-connector webhook subscriptions
+    direction: inbound
+    kind: connector-managed subscription
+    description: >-
+      Many of Integrately's native connectors register a webhook subscription with the upstream SaaS
+      rather than polling it. Each trigger record in Integrately's own catalog carries a
+      webhookSubscription boolean and a hasCentralizedWebhook boolean indicating whether that
+      specific trigger is delivered by subscription. Example observed 2026-09-13: Google Sheets
+      (app 180) trigger 18956 "Spreadsheet row is created" reports webhookSubscription true.
+    evidence_endpoint: https://embed.integrately.com/apps/{appId}/actions?type=trigger
+    note: >-
+      This endpoint is undocumented and was read out of Integrately's own embed widget bundle. It
+      is recorded as evidence, not as a published contract.
+polling_fallback:
+  description: >-
+    Where a connector cannot subscribe, Integrately polls. The polling interval is a published,
+    plan-gated value — 15 minutes on Free, 5 on Starter, 2 on Professional, Growth and Business.
+  source: https://integrately.com/pricing
+delivery_semantics:
+  retry:
+    documented: true
+    description: >-
+      AutoRetry — records that failed within the previous 24 hours are retried automatically when a
+      failing automation is corrected and set live again. When a connected app is unavailable,
+      Integrately keeps attempting to reach it for approximately 10.5 hours.
+    source: https://integrately.com/docs#autoretry-What-is-it
+  signature_verification:
+    documented: false
+    note: No webhook signing secret, HMAC header or verification procedure is documented.
+  ordering:
+    documented: false
+  deduplication:
+    documented: false
+    note: >-
+      Integrately's own usage rules in this repo (rules/integrately-rules.yml) recommend relying on
+      app-side dedup keyed on a unique identifier in the trigger payload, precisely because the
+      platform documents none.
+catalog_scale:
+  apps: 1100
+  oauth_apps: 295
+  premium_apps: 31
+  apps_requiring_no_authentication: 187
+  categories: 63
+  automation_templates: 340365
+  note: >-
+    Counts read live from https://embed.integrately.com/apps and POST
+    https://embed.integrately.com/search on 2026-09-13. Integrately's marketing claims "20 million+
+    ready automations for 1500+ apps"; the catalog its own widget queries returned 1,100 apps and
+    340,365 templates. Recorded as observed, not as a correction — the marketing figure may count
+    trigger/action permutations rather than stored templates.
+x-evidence:
+  - url: https://integrately.com/docs#connect-webhook
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://integrately.com/pricing
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://embed.integrately.com/apps/192/actions?type=trigger
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://embed.integrately.com/apps/192/actions?type=action
+    http_status: 200
+    fetched: '2026-09-13'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

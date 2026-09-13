@@ -1,0 +1,142 @@
+generated: '2026-09-13'
+method: probed
+source: live HTTPS probes of every host this record knows
+provider: Integrately
+providerId: integrately
+description: >-
+  Probe record for the RFC 8615 /.well-known/ namespace across every Integrately host in this
+  repository — the registrable domain, www, the application host (app.integrately.com, the
+  apis.yml baseURL), and embed.integrately.com (the host serving the public embeddable-automation
+  widget and its backing JSON endpoints). NO DOCUMENT WAS FOUND ON ANY HOST. No WellKnown or
+  SecurityTxt pointer is wired into apis.yml, because none would be true.
+x-false-positive-note: >-
+  www.integrately.com and app.integrately.com answer HTTP 200 to EVERY /.well-known/* path with
+  their single-page-app HTML shell (299,548 bytes of Nuxt marketing HTML and 1,656 bytes of the
+  app bootstrap respectively, identical for every path including nonsense ones). These are recorded
+  as status 200 with hit: false. The apex integrately.com returns honest 404s. embed.integrately.com
+  returns bare 404s with a zero-length body.
+hosts:
+  - host: integrately.com
+    role: registrable domain
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        hit: false
+      - path: /.well-known/openid-configuration
+        status: 404
+        hit: false
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        hit: false
+      - path: /.well-known/api-catalog
+        status: 404
+        hit: false
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        hit: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        hit: false
+      - path: /.well-known/agent.json
+        status: 404
+        hit: false
+  - host: www.integrately.com
+    role: www alias
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        hit: false
+        note: SPA catch-all — served the 299KB marketing HTML shell, not a document.
+      - path: /.well-known/openid-configuration
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell.
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell.
+      - path: /.well-known/api-catalog
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell.
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell.
+      - path: /.well-known/agent-card.json
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell, not an AgentCard.
+      - path: /.well-known/agent.json
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell, not an AgentCard.
+  - host: app.integrately.com
+    role: apis.yml baseURL / application host
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        hit: false
+        note: SPA catch-all — 1,656-byte application bootstrap HTML for every path.
+      - path: /.well-known/openid-configuration
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell.
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell.
+      - path: /.well-known/api-catalog
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell.
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell.
+      - path: /.well-known/agent-card.json
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell, not an AgentCard.
+      - path: /.well-known/agent.json
+        status: 200
+        hit: false
+        note: SPA catch-all — HTML shell, not an AgentCard.
+  - host: embed.integrately.com
+    role: embeddable widget host and its backing JSON endpoints
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        hit: false
+      - path: /.well-known/openid-configuration
+        status: 404
+        hit: false
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        hit: false
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        hit: false
+      - path: /.well-known/api-catalog
+        status: 404
+        hit: false
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        hit: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        hit: false
+      - path: /.well-known/agent.json
+        status: 404
+        hit: false
+summary:
+  hosts_probed: 4
+  paths_probed: 30
+  documents_found: 0
+  agent_card_found: false
+  security_txt_found: false
+  api_catalog_found: false
+checked: '2026-09-13'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

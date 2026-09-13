@@ -1,11 +1,11 @@
-aid: integrately:rules
-name: Integrately Usage Rules
+x-aid: integrately:rules
+x-name: Integrately Usage Rules
 description: >-
   Operational rules and guardrails for adopting Integrately as a one-click,
   no-code workflow automation layer between SaaS applications. These rules
   cover automation selection, connection hygiene, run monitoring, error
   handling, and data protection across the Integrately platform.
-modified: '2026-04-28'
+x-modified: '2026-04-28'
 rules:
   - id: prefer-prebuilt
     category: Automation Selection

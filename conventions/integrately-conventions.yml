@@ -1,0 +1,147 @@
+generated: '2026-09-13'
+method: probed
+source: live requests against https://embed.integrately.com plus the Integrately help centre
+provider: Integrately
+providerId: integrately
+scope: >-
+  READ THIS FIRST. Integrately publishes no developer API and therefore publishes no API
+  conventions. Nothing below is a documented provider commitment. This file records the semantics
+  OBSERVED on the only callable first-party JSON surface that exists — the three undocumented
+  endpoints behind Integrately's public embeddable-automation widget at embed.integrately.com —
+  together with the platform-level operational semantics the help centre and pricing page DO state.
+  Every field says which of the two it is. An agent should treat the observed column as
+  unsupported and subject to change without notice.
+description: >-
+  Cross-cutting runtime semantics for the Integrately surface: authentication, pagination, error
+  envelope, idempotency, reversibility, versioning and rate-limit signalling.
+authentication:
+  status: observed
+  style: none
+  description: >-
+    The embed endpoints accept anonymous requests. No API key, bearer token, signature or cookie is
+    sent by Integrately's own widget and none is required for a 200. There is no developer API key
+    programme, no OAuth authorization server (probed — no /.well-known/oauth-authorization-server
+    or /.well-known/openid-configuration on any host) and no documented auth page.
+  platform_note: >-
+    Separately, END USERS authenticate to third-party apps THROUGH Integrately by one of three
+    documented methods — OAuth sign-in, an app-issued API key, or a webhook URL. That is Integrately
+    acting as an OAuth client, not as an API provider. See https://integrately.com/docs#connecting-your-accounts
+pagination:
+  status: observed
+  style: offset
+  request_params:
+    - name: start
+      description: Zero-based offset into the result set (POST /search body field).
+    - name: limit
+      description: Page size (POST /search body field; the widget's configurator caps its own UI at 50).
+  response_fields:
+    - name: total
+      description: Total matching records.
+    - name: hasMore
+      description: Whether further pages exist.
+  note: GET /apps returned the full 1,100-record catalog in one response with hasMore false.
+error_envelope:
+  status: observed
+  format: bespoke
+  rfc9457: false
+  shape: '{ "success": <bool>, "message": <string|null>, "total": <int>, "data": [...] }'
+  note: >-
+    Success is signalled by a boolean inside a 200 body rather than by status code alone. No
+    application/problem+json, no error code registry, no documented error reference. A GET against
+    the POST-only /search path returned a bare 405 with a zero-length body and no envelope at all.
+  error_catalog_published: false
+idempotency:
+  coverage: na
+  status: observed
+  mechanism: none
+  header: null
+  scope: []
+  retention: null
+  note: >-
+    NA, not none — there is no mutating public surface to protect. All three observed endpoints are
+    reads (GET /apps, GET /apps/{id}/actions, POST /search, where the POST is a search query, not a
+    write). No Idempotency-Key header is accepted or documented anywhere. No Idempotency pointer is
+    wired into apis.yml, because asserting one would credit Integrately with replay protection it
+    has neither built nor claimed.
+reversibility:
+  grade: na
+  status: observed
+  write_surfaces: []
+  note: >-
+    NA for the same reason as idempotency: the public callable surface performs no writes, so there
+    is no action for an agent to take back. The Integrately PRODUCT does perform writes into
+    connected third-party apps, and Integrately documents no reversal, undo, rollback or
+    compensation path for them — a task that fires into Salesforce or Mailchimp is final as far as
+    Integrately is concerned. That is recorded here as an observation about the product, and it is
+    deliberately NOT graded as a documented-or-verified reversal path, because no reversal
+    operation and no reversal window are published. Never assert a window the docs do not state.
+  adjacent_controls:
+    - name: AutoRetry
+      description: >-
+        Retries records that failed in the previous 24 hours when a corrected automation is set
+        live again, and keeps attempting an unreachable app for roughly 10.5 hours. This is
+        forward recovery, NOT reversal — it re-attempts an action that did not land; it cannot
+        undo one that did.
+      source: https://integrately.com/docs#autoretry-What-is-it
+    - name: Queue-on-exhaustion
+      description: >-
+        When the task allowance runs out, actions stop and records queue rather than executing,
+        resumable from the History page. This defers a write rather than reversing one.
+      source: https://integrately.com/pricing
+dry_run_mode:
+  status: documented
+  supported: partial
+  description: >-
+    The automation builder's "Test and Turn On" step executes the automation once against real
+    connected accounts to surface mapping errors before the automation goes live. This is a live
+    test, not a sandbox or a non-committing rehearsal — it can create real records.
+  source: https://integrately.com/docs#basic_automation
+versioning:
+  status: observed
+  scheme: none
+  description: >-
+    The embed endpoints carry no version segment, no version header and no version query parameter.
+    The widget loader itself is unpinned. See lifecycle/integrately-lifecycle.yml.
+rate_limit_signalling:
+  status: observed
+  headers: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After headers on an observed 200. Full detail and the
+    real plan-level task quotas are in rate-limits/integrately-rate-limits.yml.
+request_id_tracing:
+  status: observed
+  headers_present: [cf-ray, x-runtime, x-runtime-action]
+  note: >-
+    No first-party correlation id. cf-ray is Cloudflare's edge trace id and x-runtime is a server
+    timing value, neither of which is documented as a support-quotable request identifier.
+field_expansion:
+  status: observed
+  supported: false
+metadata:
+  status: observed
+  supported: false
+cross_links:
+  errors: null
+  lifecycle: lifecycle/integrately-lifecycle.yml
+  authentication: null
+  rate_limits: rate-limits/integrately-rate-limits.yml
+  components: components/integrately-components.yml
+  webhooks: asyncapi/integrately-webhooks.yml
+x-evidence:
+  - url: https://embed.integrately.com/apps
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://embed.integrately.com/search
+    method: POST
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://embed.integrately.com/search
+    method: GET
+    http_status: 405
+    fetched: '2026-09-13'
+  - url: https://integrately.com/docs
+    http_status: 200
+    fetched: '2026-09-13'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

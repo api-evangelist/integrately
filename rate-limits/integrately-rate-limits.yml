@@ -4,10 +4,18 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Integrately
 providerId: integrately
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-13'
+generated: '2026-09-13'
+method: searched
+source: https://integrately.com/pricing
+note: >-
+  REPLACES a 2026-05-04 bulk-sweep scaffold that invented per-minute request limits, burst
+  ceilings, X-RateLimit-* response headers and an enterprise tier. None of those are published by
+  Integrately. Integrately has no public developer API and therefore publishes no HTTP rate limits.
+  What it DOES publish, per subscription tier, is a monthly TASK allowance and a polling interval
+  ("Update Time") — those are the real, provider-published consumption limits and are recorded
+  below. The one live JSON surface this repo could probe (embed.integrately.com, the public backing
+  API for the embeddable automation widget) returned no rate-limit headers of any kind on a 200.
 tags:
   - Automation
   - Business Process Automation
@@ -22,76 +30,153 @@ tags:
   - Rate Limiting
   - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the Integrately API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+description: >-
+  Published consumption limits for the Integrately platform. The metered unit is the "task" — each
+  successful action, condition/branch, Modify Data and Search execution. Triggers and failed actions
+  are free. A second published limit is the polling interval at which Integrately checks connected
+  apps for new trigger data, which tightens from 15 minutes on Free to 2 minutes on the top tiers.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  published: false
+  observed: []
+  note: >-
+    No rate-limit response headers are documented (there is no developer API reference to document
+    them in), and none were observed on a live 200 from https://embed.integrately.com/apps on
+    2026-09-13. Response headers returned were: date, content-type, server (cloudflare),
+    x-runtime-action, x-content-type-options, x-frame-options,
+    x-permitted-cross-domain-policies, x-xss-protection, strict-transport-security, x-runtime,
+    x-powered-by, cf-cache-status, report-to, nel, cf-ray, alt-svc. No X-RateLimit-*, no
+    RateLimit-*, no Retry-After.
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  published: false
+  observed:
+    - code: 429
+      where: https://integrately.com/blog
+      note: >-
+        Observed 2026-09-13 — Cloudflare edge rate limiting applied to an automated fetch of the
+        marketing blog path. This is edge bot policy, not a documented API throttle, and is
+        recorded as an observation only.
+limit_count: 10
 limits:
   - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Integrately Platform
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Integrately Platform
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
+    name: Free — monthly task allowance
+    scope: per-account
+    metric: tasks
     limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Integrately Platform
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
     timeFrame: month
     applies:
       - Integrately Platform
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
+    source: https://integrately.com/pricing
+  - tier: free
+    name: Free — trigger polling interval
+    scope: per-automation
+    metric: minutes_between_checks
+    limit: 15
     timeFrame: minute
     applies:
       - Integrately Platform
+    source: https://integrately.com/pricing
+  - tier: starter
+    name: Starter — monthly task allowance
+    scope: per-account
+    metric: tasks
+    limit: 2000
+    timeFrame: month
+    applies:
+      - Integrately Platform
+    source: https://integrately.com/pricing
+  - tier: starter
+    name: Starter — trigger polling interval
+    scope: per-automation
+    metric: minutes_between_checks
+    limit: 5
+    timeFrame: minute
+    applies:
+      - Integrately Platform
+    source: https://integrately.com/pricing
+  - tier: professional
+    name: Professional — monthly task allowance
+    scope: per-account
+    metric: tasks
+    limit: 10000
+    timeFrame: month
+    applies:
+      - Integrately Platform
+    source: https://integrately.com/pricing
+  - tier: professional
+    name: Professional — trigger polling interval
+    scope: per-automation
+    metric: minutes_between_checks
+    limit: 2
+    timeFrame: minute
+    applies:
+      - Integrately Platform
+    source: https://integrately.com/pricing
+  - tier: growth
+    name: Growth — monthly task allowance
+    scope: per-account
+    metric: tasks
+    limit: 30000
+    timeFrame: month
+    applies:
+      - Integrately Platform
+    source: https://integrately.com/pricing
+  - tier: growth
+    name: Growth — trigger polling interval
+    scope: per-automation
+    metric: minutes_between_checks
+    limit: 2
+    timeFrame: minute
+    applies:
+      - Integrately Platform
+    source: https://integrately.com/pricing
+  - tier: business
+    name: Business — monthly task allowance
+    scope: per-account
+    metric: tasks
+    limit: 150000
+    timeFrame: month
+    applies:
+      - Integrately Platform
+    source: https://integrately.com/pricing
+  - tier: business
+    name: Business — trigger polling interval
+    scope: per-automation
+    metric: minutes_between_checks
+    limit: 2
+    timeFrame: minute
+    applies:
+      - Integrately Platform
+    source: https://integrately.com/pricing
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Quota exhaustion
+    description: >-
+      Published behaviour: automations are not switched off when the task allowance runs out.
+      Actions stop executing and records accumulate inside Integrately; execution can be resumed
+      from the History page once tasks are replenished or the plan is upgraded.
+    source: https://integrately.com/pricing
+  - name: AutoRetry
+    description: >-
+      Integrately automatically retries records that failed in the previous 24 hours when a failing
+      automation is corrected and set live again. When a connected app is unavailable, Integrately
+      continues attempting to reach it for approximately 10.5 hours.
+    source: https://integrately.com/docs#autoretry-What-is-it
+  - name: What counts against the allowance
+    description: >-
+      Successful actions, conditions/branches, Modify Data (inline or standalone) and Search
+      (inline or standalone) each consume one task. Triggers are free; failed actions are not
+      counted.
+    source: https://integrately.com/pricing
+x-evidence:
+  - url: https://integrately.com/pricing
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://embed.integrately.com/apps
+    http_status: 200
+    fetched: '2026-09-13'
+    note: Live 200, application/json, 590,778 bytes — no rate-limit headers present.
+  - url: https://integrately.com/blog
+    http_status: 429
+    fetched: '2026-09-13'
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

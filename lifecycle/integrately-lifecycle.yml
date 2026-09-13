@@ -1,0 +1,109 @@
+generated: '2026-09-13'
+method: probed
+source: live probes of integrately.com, status.integrately.com and the Integrately help centre
+provider: Integrately
+providerId: integrately
+description: >-
+  Operational lifecycle posture for Integrately. This is a record of ABSENCES backed by probes.
+  Integrately publishes no API, no versioning policy, no deprecation policy, no SLA, no changelog
+  and no working status page. Each of those is recorded with the URL and HTTP status that
+  establishes it, so a later run can tell "checked and not there" from "never checked".
+versioning:
+  published: false
+  scheme: null
+  note: >-
+    No API version scheme is published because no API is published. The product itself is versioned
+    silently — the web app is a continuously deployed SPA.
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No deprecation or sunset policy found on the site, in the help centre, or in the terms of use.
+    RFC 8594 Sunset/Deprecation headers were not observed on any probed response.
+sla:
+  published: false
+  note: >-
+    No uptime commitment, credit schedule or support-response SLA is published. The pricing table
+    states support CHANNEL by tier (24*5 live chat on Free through Professional; a dedicated
+    account manager plus live chat on Growth and Business) but attaches no response-time target.
+  source: https://integrately.com/pricing
+status_page:
+  published: false
+  probed_url: https://status.integrately.com/
+  http_status: 200
+  vendor: Freshping
+  verdict: dead
+  note: >-
+    status.integrately.com resolves and returns HTTP 200, but the body is the Freshping placeholder
+    "Status page for domain name does not exist". This is a soft-404: the subdomain points at a
+    status-page vendor that has no page configured for it. It is NOT a status page and no
+    StatusPage pointer is wired into apis.yml. This is exactly the failure mode that makes a
+    pointer's mere presence untrustworthy — a reader who followed the subdomain would conclude
+    Integrately publishes status when it does not.
+  fetched: '2026-09-13'
+changelog:
+  published: false
+  probed:
+    - url: https://integrately.com/changelog
+      http_status: 404
+    - url: https://integrately.com/whats-new
+      http_status: 404
+  note: >-
+    No dated changelog or release-notes surface found. Product news appears in the marketing blog
+    (https://integrately.com/blog) in undated, unstructured form; that path returned HTTP 429 to an
+    automated fetch on 2026-09-13 (Cloudflare edge rate limiting, not a dead page).
+roadmap:
+  published: partial
+  url: https://integrately.upvotyfeedback.com/?board=c3ee536c-22ec-4184-b3c7-f90af6d1bf0d
+  http_status: 200
+  vendor: Upvoty
+  verdict: feature-request board, not a roadmap
+  note: >-
+    Integrately links this board from its footer as "Request Integrations". It is a public Upvoty
+    voting board for requesting new app connectors. The board renders client-side and its columns
+    could not be read by an automated fetch, so there is no evidence it publishes planned/shipped
+    lanes. No Roadmap pointer is wired into apis.yml on this evidence — an integration wishlist is
+    not a product roadmap, and claiming one on the provider's behalf would be a false assertion.
+  fetched: '2026-09-13'
+support:
+  channels:
+    - type: live-chat
+      description: 24*5 live chat, available on every tier including Free.
+      source: https://integrately.com/pricing
+    - type: account-manager
+      description: Dedicated account manager on the Growth and Business tiers.
+      source: https://integrately.com/pricing
+    - type: email
+      value: support@integrately.com
+      source: https://integrately.com/ (footer, Cloudflare email-obfuscated)
+    - type: community
+      value: https://facebook.com/groups/integraters
+      description: Public Facebook group, linked from the site footer as "Join FB Group".
+    - type: help-center
+      value: https://integrately.com/docs
+      description: End-user help centre covering automation setup, connections, troubleshooting and AutoRetry.
+deprecated_operations:
+  derived: false
+  note: No OpenAPI exists to derive deprecated operations from.
+x-evidence:
+  - url: https://status.integrately.com/
+    http_status: 200
+    fetched: '2026-09-13'
+    note: Freshping placeholder body — "Status page for domain name does not exist".
+  - url: https://integrately.com/changelog
+    http_status: 404
+    fetched: '2026-09-13'
+  - url: https://integrately.com/whats-new
+    http_status: 404
+    fetched: '2026-09-13'
+  - url: https://integrately.upvotyfeedback.com/?board=c3ee536c-22ec-4184-b3c7-f90af6d1bf0d
+    http_status: 200
+    fetched: '2026-09-13'
+  - url: https://integrately.com/pricing
+    http_status: 200
+    fetched: '2026-09-13'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

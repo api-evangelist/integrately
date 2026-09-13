@@ -58,7 +58,7 @@ tags_raw:
   - Workflow Automation
   - Workflows
 created: '2026-03-27'
-modified: '2026-04-28'
+modified: '2026-09-13'
 url: https://raw.githubusercontent.com/api-evangelist/integrately/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
@@ -82,8 +82,6 @@ apis:
       - SaaS
       - Workflow Automation
     properties:
-      - type: Portal
-        url: https://integrately.com
       - type: Documentation
         url: https://integrately.com/docs
       - type: Integrations
@@ -103,8 +101,6 @@ common:
     url: https://www.integrately.com/
   - type: DomainSecurity
     url: security/integrately-domain-security.yml
-  - type: Portal
-    url: https://integrately.com
   - type: Documentation
     url: https://integrately.com/docs
   - type: Integrations
@@ -128,7 +124,35 @@ common:
   - type: YouTube
     url: https://www.youtube.com/channel/UCtLeDvJ7HVKuZ6O5UtwgnMA
   - type: Facebook
-    url: https://facebook.com/groups/integraters
+    url: https://www.facebook.com/groups/integraters
+  - type: GettingStarted
+    url: https://integrately.com/docs#create-your-own-automations
+  - type: Community
+    url: https://www.facebook.com/groups/integraters
+  - type: Plans
+    url: plans/integrately-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/integrately-rate-limits.yml
+  - type: FinOps
+    url: finops/integrately-finops.yml
+  - type: SpectralRules
+    url: rules/integrately-rules.yml
+  - type: Webhooks
+    url: asyncapi/integrately-webhooks.yml
+  - type: Components
+    url: components/integrately-components.yml
+  - type: DataModel
+    url: data-model/integrately-data-model.yml
+  - type: Conventions
+    url: conventions/integrately-conventions.yml
+  - type: Conformance
+    url: conformance/integrately-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/integrately-lifecycle.yml
+  - type: Packages
+    url: packages/integrately-packages.yml
+  - type: LLMsTxt
+    url: llms/integrately-llms.txt
 integrations:
   - name: Google Sheets
   - name: Webhook / API Integration
@@ -233,3 +257,9 @@ integrations:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+
+x-enrichment:
+  date: '2026-09-13'
+  status: enriched
+  artifacts_added: 9
+  pass: local-v3
