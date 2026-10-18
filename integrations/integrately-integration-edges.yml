@@ -2,6 +2,7 @@ generated: '2026-10-14'
 method: searched
 checked:
 - https://github.com/marketplace?type=apps
+- zoom/integrations/zoom-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: GitHub Marketplace (apps)
@@ -19,5 +20,22 @@ edges:
   publisher_name: Integrately
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
+- partner_name: Zoom (own)
+  partner: zoom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.zoom.us/apps/S0O91u_4Rwqgj4k_DXf3cg
+  mirror_of: zoom/integrations/zoom-integration-edges.yml
+  apps:
+  - Integrately
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Zoom app
 source:
 - https://github.com/marketplace?type=apps
