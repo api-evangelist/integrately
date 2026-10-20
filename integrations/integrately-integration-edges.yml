@@ -1,8 +1,19 @@
-generated: '2026-10-14'
+generated: '2026-10-20'
 method: searched
+source:
+- https://github.com/marketplace?type=apps
+- https://zapier.com/apps/integrately/integrations
+- https://n8n.io/integrations/integrately/
+- https://composio.dev/toolkits/integrately
+- https://monid.ai/tools/integrately
 checked:
 - https://github.com/marketplace?type=apps
 - zoom/integrations/zoom-integration-edges.yml
+- https://composio.dev/toolkits/integrately
+- https://monid.ai/tools/integrately
+- https://n8n.io/integrations/integrately/
+- https://zapier.com/apps/integrately/integrations
+summary: null
 marketplace_apps: []
 edges:
 - partner_name: GitHub Marketplace (apps)
@@ -37,5 +48,4 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
-source:
-- https://github.com/marketplace?type=apps
+templates: []
