@@ -41,3 +41,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: integrately-xero-own
+  label: Xero (own)
+  partner: xero
+  partner_name: Xero (own)
+  category: Workflow builders
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://apps.xero.com/nz/app/integrately
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
