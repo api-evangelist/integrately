@@ -13,6 +13,7 @@ checked:
 - https://monid.ai/tools/integrately
 - https://n8n.io/integrations/integrately/
 - https://zapier.com/apps/integrately/integrations
+- intercom/integrations/intercom-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
@@ -48,4 +49,21 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
+- partner_name: Intercom (own)
+  partner: intercom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.intercom.com/app-store/?app_package_code=test_integrately
+  mirror_of: intercom/integrations/intercom-integration-edges.yml
+  apps:
+  - Integrately
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Intercom App Store app
 templates: []
