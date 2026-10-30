@@ -1,4 +1,4 @@
-# Integrately (integrately)
+# Integrately
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,66 +66,118 @@
 
 Integrately is a one-click workflow automation platform offering 20 million+ ready-to-use automations across 1500+ applications. It positions itself as a no-code, lower-cost alternative to other iPaaS and workflow tools, using SmartConnect technology to auto-detect connections between apps and bundle expert-built automations at no extra cost.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/integrately/refs/heads/main/apis.yml)
+**Areas:** Automation · Business Process Automation · iPaaS · No-Code · SaaS Integration · Small Business · Triggers and Actions · Webhook · Workflow Automation · Workflows
 
-## Scope
+## Integrately on APIs.io
 
-- **Type:** Index 
-- **Position:** Consumer 
-- **Access:** 3rd-Party 
+Everything profiled for Integrately is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/integrately/](https://apis.io/providers/integrately/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (1)
 
- - Automation, Business Process Automation, iPaaS, No-Code, SaaS Integration, SMB, Triggers and Actions, Webhooks, Workflow Automation, Workflows
+- [Integrately Platform](https://apis.io/apis/integrately/platform/) — The Integrately platform connects 1500+ SaaS applications through a catalog of 20 million+ pre-built one-click automations covering common business…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-27 
-- **Modified:** 2026-04-28 
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Integrately Platform
-The Integrately platform connects 1500+ SaaS applications through a catalog of 20 million+ pre-built one-click automations covering common business workflows such as lead capture, CRM sync, marketing operations, e-commerce, and notifications.
+Event-driven and webhook contracts.
 
-**Human URL:** [https://integrately.com](https://integrately.com)
+- [Integrately Webhooks](https://apis.io/asyncapis/integrately/integrately-webhooks/)
 
-**Base URL:** https://app.integrately.com
+#### Governance rules (1)
 
+Spectral rulesets for the provider's contracts.
 
-#### Tags:
+- [Integrately API Rules](https://apis.io/rules/integrately/integrately-rules/)
 
- - Automation, No-Code, SaaS, Workflow Automation
+#### Security (1)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Portal](https://integrately.com)
+- [Integrately Domain Security](https://apis.io/security/integrately/integrately-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Integrately Plans Pricing](https://apis.io/plans/integrately/integrately-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Integrately Rate Limits](https://apis.io/rate-limits/integrately/integrately-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Integrately Finops](https://apis.io/finops/integrately/integrately-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.integrately.com/)
 - [Documentation](https://integrately.com/docs)
-- [Integrations](https://integrately.com/integrations)
+- [Getting started](https://integrately.com/docs#create-your-own-automations)
 - [Pricing](https://integrately.com/pricing)
 - [Blog](https://integrately.com/blog)
-- [SignUp](https://app.integrately.com/signup)
-- [Login](https://app.integrately.com/login)
-- [Rules](rules/integrately-rules.yml)
+- [Terms of service](https://integrately.com/home/terms)
 
-## Common Properties
+## API Evangelist rating
 
-- [Portal](https://integrately.com)
-- [Documentation](https://integrately.com/docs)
-- [Integrations](https://integrately.com/integrations)
-- [Pricing](https://integrately.com/pricing)
-- [Blog](https://integrately.com/blog)
-- [SignUp](https://app.integrately.com/signup)
-- [Login](https://app.integrately.com/login)
-- [Privacy](https://integrately.com/home/privacy)
-- [TermsOfService](https://integrately.com/home/terms)
-- [X](https://twitter.com/integratelyapp)
-- [LinkedIn](https://www.linkedin.com/company/integrately)
-- [YouTube](https://www.youtube.com/channel/UCtLeDvJ7HVKuZ6O5UtwgnMA)
-- [Facebook](https://facebook.com/groups/integraters)
+**Kin Score 44.1** — developing · rubric 0.25.0 · scored 2026-10-23
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 26.2 |
+| Access clarity | 69.7 |
 
-**FN:** Kin Lane
+**Agent readiness 19.8** — agent-aware
 
-**Email:** kin@apievangelist.com
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 18.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/integrately/](https://apis.io/providers/integrately/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Integrately: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/integrately/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
